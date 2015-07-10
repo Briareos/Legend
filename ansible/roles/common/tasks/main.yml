@@ -1,0 +1,6 @@
+---
+- name: Install packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items: common.packages
+  when: common.packages is defined
