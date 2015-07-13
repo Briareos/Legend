@@ -6,9 +6,26 @@
   service: name=nginx state=started enabled=yes
 
 - name: Set default Nginx site
-  template: src=nginx/sites/default dest=/etc/nginx/sites-available/default
+  copy: src=nginx/sites/default dest=/etc/nginx/sites-available/default
   notify: restart nginx
 
 - name: Set Nginx upstreams
-  template: src=nginx/upstreams.conf dest=/etc/nginx/conf.d/upstreams.conf
+  copy: src=nginx/upstreams.conf dest=/etc/nginx/conf.d/upstreams.conf
   notify: restart nginx
+
+- copy: src=nginx/snippets/localhost-ssl.conf dest=/etc/nginx/snippets/localhost-ssl.conf
+- copy: src=nginx/snippets/wildcard-localhost-ssl.conf dest=/etc/nginx/snippets/wildcard-localhost-ssl.conf
+- copy: src=nginx/snippets/http-proxy.conf dest=/etc/nginx/snippets/http-proxy.conf
+- copy: src=nginx/snippets/php.conf dest=/etc/nginx/snippets/php.conf
+- copy: src=nginx/snippets/symfony.conf dest=/etc/nginx/snippets/symfony.conf
+
+# localhost key
+- copy: src=ssl/localhost.key dest=/etc/ssl/private/localhost.key
+- copy: src=ssl/localhost.crt dest=/usr/local/share/ca-certificates/localhost.crt
+- file: path=/etc/ssl/certs/localhost.pem src=/usr/local/share/ca-certificates/localhost.crt state=link
+  notify: update ca certificates
+# *.localhost key
+- copy: src=ssl/wildcard-localhost.key dest=/etc/ssl/private/wildcard-localhost.key
+- copy: src=ssl/wildcard-localhost.crt dest=/usr/local/share/ca-certificates/wildcard-localhost.crt
+- file: path=/etc/ssl/certs/localhost.pem src=/usr/local/share/ca-certificates/wildcard-localhost.crt state=link
+  notify: update ca certificates

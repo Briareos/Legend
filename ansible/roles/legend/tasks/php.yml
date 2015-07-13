@@ -22,25 +22,29 @@
     group: vagrant
 
 # FPM
-- lineinfile:
+- name: Set PHP FPM error reporting
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^error_reporting\s*=
     line: error_reporting = E_ALL
   notify: restart php5-fpm
-- lineinfile:
+- name: Set PHP FPM default timezone
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^(;\s*)?date.timezone\s*=
     line: date.timezone = UTC
   notify: restart php5-fpm
-- lineinfile:
+- name: Display PHP FPM errors
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^(;\s*)?display_errors\s*=
     line: display_errors = On
   notify: restart php5-fpm
-- lineinfile:
+- name: Set PHP FPM sendmail path to Mailcatcher
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^(;\s*)?display_startup_errors\s*=
@@ -56,28 +60,49 @@
     line: sendmail_path = /usr/bin/env /usr/local/bin/catchmail -f no-reply@localhost
   notify: restart php5-fpm
 
+# FPM pool configuration
+- name: Set PHP FPM user
+  lineinfile:
+    dest: /etc/php5/fpm/pool.d/www.conf
+    state: present
+    regexp: ^(;\s*)?user\s*=
+    line: user = vagrant
+  notify: restart php5-fpm
+- name: Set PHP FPM group
+  lineinfile:
+    dest: /etc/php5/fpm/pool.d/www.conf
+    state: present
+    regexp: ^(;\s*)?group\s*=
+    line: group = vagrant
+  notify: restart php5-fpm
+
 # CLI
-- lineinfile:
+- name: Set PHP CLI error reporting
+  lineinfile:
     dest: /etc/php5/cli/php.ini
     state: present
     regexp: ^error_reporting\s*=
     line: error_reporting = E_ALL
-- lineinfile:
+- name: Display PHP CLI errors
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^(;\s*)?display_errors\s*=
     line: display_errors = On
-- lineinfile:
+- name: Display PHP CLI startup errors
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^(;\s*)?display_startup_errors\s*=
     line: display_startup_errors = On
-- lineinfile:
+- name: Set PHP CLI default timezone
+  lineinfile:
     dest: /etc/php5/cli/php.ini
     state: present
     regexp: ^(;\s*)?date.timezone\s*=
     line: date.timezone = UTC
-- lineinfile:
+- name: Set PHP CLI sendmail path to Mailcatcher
+  lineinfile:
     dest: /etc/php5/cli/php.ini
     state: present
     regexp: ^(;\s*)?sendmail_path\s*=

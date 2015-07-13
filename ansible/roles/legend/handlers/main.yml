@@ -10,3 +10,6 @@
 
 - name: restart rabbitmq
   service: name=rabbitmq-server enabled=yes state=restarted
+
+- name: update ca certificates
+  command: update-ca-certificates

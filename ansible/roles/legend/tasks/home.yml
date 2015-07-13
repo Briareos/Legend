@@ -1,0 +1,6 @@
+---
+- template:
+    src: home/inputrc
+    dest: /home/vagrant/.inputrc
+    owner: vagrant
+    group: vagrant

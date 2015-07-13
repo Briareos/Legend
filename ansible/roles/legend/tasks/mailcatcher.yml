@@ -5,6 +5,7 @@
   gem:
     name: mailcatcher
     state: latest
+    user_install: no
 
 - file: path=/var/log/mailcatcher state=directory
 - name: Configure Mailcatcher Supervisor

@@ -3,6 +3,7 @@
   shell: netstat -rn | grep "^0\.0\.0\.0 " | cut -d " " -f10 | tr -d '\n'
   register: host_ip
 - apt_repository: repo=ppa:nginx/stable
+- include: home.yml
 - include: common.yml
 - include: nginx.yml
 - include: mysql.yml
