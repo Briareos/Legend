@@ -12,6 +12,8 @@
   template:
     src: phpmyadmin/config.inc.php
     dest: "{{ phpmyadmin_path }}/config.inc.php"
+    owner: vagrant
+    group: vagrant
 - name: Create phpMyAdmin database user
   mysql_user:
     priv: phpmyadmin.*:ALL
