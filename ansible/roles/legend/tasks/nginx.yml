@@ -14,7 +14,7 @@
   notify: restart nginx
 
 - copy: src=nginx/snippets/localhost-ssl.conf dest=/etc/nginx/snippets/localhost-ssl.conf
-- copy: src=nginx/snippets/wildcard-localhost-ssl.conf dest=/etc/nginx/snippets/wildcard-localhost-ssl.conf
+- copy: src=nginx/snippets/dev-localhost-ssl.conf dest=/etc/nginx/snippets/dev-localhost-ssl.conf
 - copy: src=nginx/snippets/http-proxy.conf dest=/etc/nginx/snippets/http-proxy.conf
 - copy: src=nginx/snippets/php.conf dest=/etc/nginx/snippets/php.conf
 - copy: src=nginx/snippets/symfony.conf dest=/etc/nginx/snippets/symfony.conf
@@ -25,7 +25,7 @@
 - file: path=/etc/ssl/certs/localhost.pem src=/usr/local/share/ca-certificates/localhost.crt state=link
   notify: update ca certificates
 # *.localhost key
-- copy: src=ssl/wildcard-localhost.key dest=/etc/ssl/private/wildcard-localhost.key
-- copy: src=ssl/wildcard-localhost.crt dest=/usr/local/share/ca-certificates/wildcard-localhost.crt
-- file: path=/etc/ssl/certs/wildcard-localhost.pem src=/usr/local/share/ca-certificates/wildcard-localhost.crt state=link
+- copy: src=ssl/dev-localhost.key dest=/etc/ssl/private/dev-localhost.key
+- copy: src=ssl/dev-localhost.crt dest=/usr/local/share/ca-certificates/dev-localhost.crt
+- file: path=/etc/ssl/certs/dev-localhost.pem src=/usr/local/share/ca-certificates/dev-localhost.crt state=link
   notify: update ca certificates

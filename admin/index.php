@@ -21,35 +21,35 @@ $a = 1;
             <h2>Web tools</h2>
 
             <div class="list-group">
-                <a href=//php.localhost class="list-group-item">
+                <a href=//php.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">PHP</h4>
 
                     <p class="list-group-item-text">
                         PHP <?= Info::phpVersion() ?>
                     </p>
                 </a>
-                <a href=//mysql.localhost class="list-group-item">
+                <a href=//mysql.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">MySQL</h4>
 
                     <p class="list-group-item-text">
                         <?= Info::mysqlVersion() ?>
                     </p>
                 </a>
-                <a href=//mongo.localhost class="list-group-item">
+                <a href=//mongo.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">MongoDB</h4>
 
                     <p class="list-group-item-text">
                         <?= Info::mongodbVersion() ?>
                     </p>
                 </a>
-                <a href=//redis.localhost class="list-group-item">
+                <a href=//redis.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">Redis</h4>
 
                     <p class="list-group-item-text">
                         <?= Info::redisVersion() ?>
                     </p>
                 </a>
-                <a href=//rabbitmq.localhost class="list-group-item">
+                <a href=//rabbitmq.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">RabbitMQ</h4>
 
                     <p class="list-group-item-text">
@@ -57,14 +57,14 @@ $a = 1;
                         <code>guest:guest</code>
                     </p>
                 </a>
-                <a href=//mail.localhost class="list-group-item">
+                <a href=//mail.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">Mailcatcher</h4>
 
                     <p class="list-group-item-text">
                         <?= Info::mailcatcherVersion() ?>
                     </p>
                 </a>
-                <a href=//xhprof.localhost class="list-group-item">
+                <a href=//xhprof.dev.localhost class="list-group-item">
                     <h4 class="list-group-item-heading">XHProf</h4>
 
                     <p class="list-group-item-text text-muted">

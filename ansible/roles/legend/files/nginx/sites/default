@@ -18,7 +18,7 @@ server {
 }
 
 server {
-    server_name php.localhost;
+    server_name php.dev.localhost;
     root /home/vagrant/www/localhost/php;
     index index.php;
 
@@ -27,16 +27,16 @@ server {
 
 server {
     listen 443;
-    server_name php.localhost;
+    server_name php.dev.localhost;
     root /home/vagrant/www/localhost/php;
     index index.php;
 
-    include snippets/wildcard-localhost-ssl.conf;
+    include snippets/dev-localhost-ssl.conf;
     include snippets/php.conf;
 }
 
 server {
-    server_name mysql.localhost;
+    server_name mysql.dev.localhost;
     index index.php;
     root /home/vagrant/www/localhost/mysql;
 
@@ -45,16 +45,16 @@ server {
 
 server {
     listen 443;
-    server_name mysql.localhost;
+    server_name mysql.dev.localhost;
     index index.php;
     root /home/vagrant/www/localhost/mysql;
 
-    include snippets/wildcard-localhost-ssl.conf;
+    include snippets/dev-localhost-ssl.conf;
     include snippets/php.conf;
 }
 
 server {
-    server_name mongo.localhost;
+    server_name mongo.dev.localhost;
     index index.php;
     root /home/vagrant/www/localhost/mongo;
 
@@ -63,16 +63,16 @@ server {
 
 server {
     listen 443;
-    server_name mongo.localhost;
+    server_name mongo.dev.localhost;
     index index.php;
     root /home/vagrant/www/localhost/mongo;
 
-    include snippets/wildcard-localhost-ssl.conf;
+    include snippets/dev-localhost-ssl.conf;
     include snippets/php.conf;
 }
 
 server {
-    server_name redis.localhost;
+    server_name redis.dev.localhost;
 
     location / {
         proxy_pass http://127.0.0.1:8081;
@@ -82,9 +82,9 @@ server {
 
 server {
     listen 443;
-    server_name redis.localhost;
+    server_name redis.dev.localhost;
 
-    include snippets/wildcard-localhost-ssl.conf;
+    include snippets/dev-localhost-ssl.conf;
 
     location / {
         proxy_pass http://127.0.0.1:8081;
@@ -93,7 +93,7 @@ server {
 }
 
 server {
-    server_name rabbitmq.localhost;
+    server_name rabbitmq.dev.localhost;
 
     location / {
         proxy_pass http://127.0.0.1:15672;
@@ -103,9 +103,9 @@ server {
 
 server {
     listen 443;
-    server_name rabbitmq.localhost;
+    server_name rabbitmq.dev.localhost;
 
-    include snippets/wildcard-localhost-ssl.conf;
+    include snippets/dev-localhost-ssl.conf;
 
     location / {
         proxy_pass http://127.0.0.1:15672;
@@ -114,7 +114,7 @@ server {
 }
 
 server {
-    server_name mail.localhost;
+    server_name mail.dev.localhost;
 
     location / {
         proxy_pass http://127.0.0.1:1080;
@@ -124,9 +124,9 @@ server {
 
 server {
     listen 443;
-    server_name mail.localhost;
+    server_name mail.dev.localhost;
 
-    include snippets/wildcard-localhost-ssl.conf;
+    include snippets/dev-localhost-ssl.conf;
 
     location / {
         proxy_pass http://127.0.0.1:1080;
