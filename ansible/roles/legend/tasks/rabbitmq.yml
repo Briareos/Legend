@@ -5,15 +5,6 @@
 - name: Ensure RabbitMQ is started and enabled to start at boot
   service: name=rabbitmq-server state=started enabled=yes
 
-- rabbitmq_user:
-    user: admin
-    password: admin
-    tags: administrator
-    vhost: /
-    configure_priv: .*
-    read_priv: .*
-    write_priv: .*
-
 - rabbitmq_plugin:
     names: rabbitmq_management,rabbitmq_management_visualiser,rabbitmq_tracing,rabbitmq_stomp,rabbitmq_web_stomp,rabbitmq_web_stomp_examples
   notify: restart rabbitmq

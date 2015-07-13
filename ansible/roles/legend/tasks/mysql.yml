@@ -5,13 +5,9 @@
 - name: Ensure MySQL server is started and enabled to start at boot
   service: name=mysql state=started enabled=yes
 
-- name: Set MySQL root password
-  shell:
-    cmd: mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('123');"
-- name: Write .my.cnf file
-  copy:
-    dest: /root/.my.cnf
-    content: |
-      [client]
-      user=root
-      password=123
+- name: Create wildcard root MySQL user
+  mysql_user:
+    name: root
+    host: "%"
+    password: PASSWORD('123')
+    priv: "*.*:ALL"

@@ -51,6 +51,7 @@
 
                     <p class="list-group-item-text">
                         <?= Info::rabbitmqVersion() ?>
+                        <code>guest:guest</code>
                     </p>
                 </a>
                 <a href=//mail.localhost class="list-group-item">
