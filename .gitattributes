@@ -1,0 +1,2 @@
+*.key text eol=lf
+*.crt text eol=lf

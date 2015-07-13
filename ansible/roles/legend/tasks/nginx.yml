@@ -27,5 +27,5 @@
 # *.localhost key
 - copy: src=ssl/wildcard-localhost.key dest=/etc/ssl/private/wildcard-localhost.key
 - copy: src=ssl/wildcard-localhost.crt dest=/usr/local/share/ca-certificates/wildcard-localhost.crt
-- file: path=/etc/ssl/certs/localhost.pem src=/usr/local/share/ca-certificates/wildcard-localhost.crt state=link
+- file: path=/etc/ssl/certs/wildcard-localhost.pem src=/usr/local/share/ca-certificates/wildcard-localhost.crt state=link
   notify: update ca certificates
