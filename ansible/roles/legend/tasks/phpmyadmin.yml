@@ -1,0 +1,28 @@
+---
+- file: state=directory path={{ phpmyadmin_path }} owner=vagrant group=vagrant
+- name: Checkout phpMyAdmin
+  sudo_user: vagrant
+  git:
+    repo: https://github.com/phpmyadmin/phpmyadmin.git
+    dest: "{{ phpmyadmin_path }}"
+    version: "{{ phpmyadmin_branch }}"
+    depth: 1
+    accept_hostkey: True
+- name: Set phpMyAdmin config.inc.php
+  template:
+    src: phpmyadmin/config.inc.php
+    dest: "{{ phpmyadmin_path }}/config.inc.php"
+- name: Create phpMyAdmin database user
+  mysql_user:
+    priv: phpmyadmin.*:ALL
+    name: phpmyadmin
+    password: PASSWORD('123')
+- name: Import phpMyAdmin schema
+  mysql_db:
+    name: phpmyadmin
+    state: present
+- name: Import phpMyAdmin schema
+  mysql_db:
+    name: phpmyadmin
+    state: import
+    target: "{{ phpmyadmin_path }}/sql/create_tables.sql"

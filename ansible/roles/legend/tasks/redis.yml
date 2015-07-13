@@ -1,0 +1,6 @@
+---
+- name: Install Redis
+  apt: pkg=redis-server state=latest
+
+- name: Ensure Redis server is started and enabled to start at boot
+  service: name=redis-server state=started enabled=yes

@@ -1,0 +1,14 @@
+---
+- file: state=directory path={{ rockmongo_path }} owner=vagrant group=vagrant
+- name: Checkout RockMongo
+  sudo_user: vagrant
+  git:
+    repo: https://github.com/emri99/rockmongo.git
+    dest: "{{ rockmongo_path }}"
+    version: master
+    depth: 1
+    accept_hostkey: True
+- name: Set RockMongo configuration
+  template:
+    src: rockmongo/config.php
+    dest: "{{ rockmongo_path }}/config.php"

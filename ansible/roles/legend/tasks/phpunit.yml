@@ -1,0 +1,11 @@
+---
+- stat: path=/usr/local/bin/phpunit
+  register: phpunit
+- name: Download PHPUnit
+  get_url:
+    url: https://phar.phpunit.de/phpunit.phar
+    dest: /usr/local/bin/phpunit
+  when: phpunit.stat.exists == false
+- file: path=/usr/local/bin/phpunit state=file mode=0755
+- command: phpunit --self-update
+  when: phpunit.stat.exists == true

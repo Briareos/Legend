@@ -1,0 +1,12 @@
+---
+- name: Checkout Boris REPL repository
+  git:
+    repo: https://github.com/borisrepl/boris.git
+    dest: /usr/local/lib/boris
+    version: master
+    depth: 1
+    accept_hostkey: True
+- file:
+    path: /usr/local/bin/boris
+    src: ../lib/boris/bin/boris
+    state: link

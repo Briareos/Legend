@@ -1,0 +1,18 @@
+---
+- name: Install Redis-Commander
+  npm:
+    name: redis-commander
+    global: yes
+    state: latest
+- file: path=/var/log/redis-commander state=directory
+- name: Configure Redis-Commander Supervisor
+  copy:
+    dest: /etc/supervisor/conf.d/redis-commander.conf
+    content: |
+      [program:redis-commander]
+      command=redis-commander --redis-host localhost --port 8081
+      autostart=true
+      autorestart=true
+      stderr_logfile=/var/log/redis-commander/error.log
+      stdout_logfile=/var/log/redis-commander/output.log
+  notify: restart supervisor

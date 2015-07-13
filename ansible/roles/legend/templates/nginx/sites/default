@@ -1,0 +1,83 @@
+server {
+    listen 80 default_server;
+    server_name localhost;
+    index index.php;
+    root /vagrant/admin;
+
+    location ~ \.php$ {
+        include fastcgi.conf;
+        fastcgi_pass php5-fpm;
+    }
+}
+
+server {
+    server_name php.localhost;
+    root /home/vagrant/www/localhost/php;
+    index index.php;
+
+    location ~ \.php$ {
+        include fastcgi.conf;
+        fastcgi_pass php5-fpm;
+    }
+}
+
+server {
+    server_name mysql.localhost;
+    index index.php;
+    root /home/vagrant/www/localhost/mysql;
+
+    location ~ \.php$ {
+        include fastcgi.conf;
+        fastcgi_pass php5-fpm;
+    }
+}
+
+server {
+    server_name mongo.localhost;
+    index index.php;
+    root /home/vagrant/www/localhost/mongo;
+
+    location ~ \.php$ {
+        include fastcgi.conf;
+        fastcgi_pass php5-fpm;
+    }
+}
+
+server {
+    server_name redis.localhost;
+
+    location / {
+        proxy_pass http://127.0.0.1:8081;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    server_name rabbitmq.localhost;
+
+    location / {
+        proxy_pass http://127.0.0.1:15672;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+server {
+    server_name mail.localhost;
+
+    location / {
+        proxy_pass http://127.0.0.1:1080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}

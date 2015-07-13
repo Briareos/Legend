@@ -1,0 +1,16 @@
+---
+- name: Install common packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - git
+    - nodejs
+    - nodejs-legacy
+    - npm
+    - supervisor
+    - tree
+    - graphviz
+    - htop
+    # Required for mysql_* Ansible modules.
+    - python-mysqldb
+    # Required for apt_repository Ansible module.
+    - python-apt

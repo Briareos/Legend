@@ -1,0 +1,20 @@
+---
+- name: Install Mailcatcher dependencies
+  apt: pkg=ruby2.1-dev state=present
+- name: Install Mailcatcher
+  gem:
+    name: mailcatcher
+    state: latest
+
+- file: path=/var/log/mailcatcher state=directory
+- name: Configure Mailcatcher Supervisor
+  copy:
+    dest: /etc/supervisor/conf.d/mailcatcher.conf
+    content: |
+      [program:mailcatcher]
+      command=mailcatcher --http-port 1080
+      autostart=true
+      autorestart=true
+      stderr_logfile=/var/log/mailcatcher/error.log
+      stdout_logfile=/var/log/mailcatcher/output.log
+  notify: restart supervisor

@@ -1,0 +1,17 @@
+---
+- name: Install MySQL
+  apt: pkg=mysql-server-5.6 state=latest
+
+- name: Ensure MySQL server is started and enabled to start at boot
+  service: name=mysql state=started enabled=yes
+
+- name: Set MySQL root password
+  shell:
+    cmd: mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('123');"
+- name: Write .my.cnf file
+  copy:
+    dest: /root/.my.cnf
+    content: |
+      [client]
+      user=root
+      password=123

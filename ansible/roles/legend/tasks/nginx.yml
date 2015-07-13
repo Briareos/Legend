@@ -1,0 +1,14 @@
+---
+- name: Install Nginx
+  apt: pkg=nginx state=latest
+
+- name: Ensure Nginx is started and enabled to start at boot
+  service: name=nginx state=started enabled=yes
+
+- name: Set default Nginx site
+  template: src=nginx/sites/default dest=/etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: Set Nginx upstreams
+  template: src=nginx/upstreams.conf dest=/etc/nginx/conf.d/upstreams.conf
+  notify: restart nginx
