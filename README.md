@@ -23,6 +23,8 @@
         /var/cache/dev/twig
         /vendor
 1. Deploy (upload) the project.
+1. Set up XDebug server and mapped paths.
+1. Download PHPUnit locally and add it as a PHP library.
 1. Turn on automatic synchronization.
 1. On host machine run `composer install --ignore-platform-reqs --no-autoloader --no-scripts`
 1. On guest machine run `composer install`

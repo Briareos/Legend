@@ -4,6 +4,7 @@
   with_items:
     - php5-cli
     - php5-fpm
+    - php5-curl
     - php5-xdebug
     - php5-xhprof
     - php5-mysqlnd
