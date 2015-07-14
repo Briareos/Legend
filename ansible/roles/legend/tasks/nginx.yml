@@ -13,6 +13,11 @@
   copy: src=nginx/upstreams.conf dest=/etc/nginx/conf.d/upstreams.conf
   notify: restart nginx
 
+- copy:
+    dest: /etc/nginx/conf.d/fastcgi.conf
+    content: |
+      fastcgi_read_timeout 3630;
+
 - copy: src=nginx/snippets/localhost-ssl.conf dest=/etc/nginx/snippets/localhost-ssl.conf
 - copy: src=nginx/snippets/dev-localhost-ssl.conf dest=/etc/nginx/snippets/dev-localhost-ssl.conf
 - copy: src=nginx/snippets/http-proxy.conf dest=/etc/nginx/snippets/http-proxy.conf

@@ -59,6 +59,13 @@
     regexp: ^(;\s*)?sendmail_path\s*=
     line: sendmail_path = /usr/bin/env /usr/local/bin/catchmail -f no-reply@localhost
   notify: restart php5-fpm
+- name: Set PHP FPM max execution time
+  lineinfile:
+    dest: /etc/php5/fpm/php.ini
+    state: present
+    regexp: ^max_execution_time\s*=
+    line: max_execution_time = 3600
+  notify: restart nginx
 
 # FPM pool configuration
 - name: Set PHP FPM user
