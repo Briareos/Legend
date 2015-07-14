@@ -66,8 +66,8 @@
     regexp: ^max_execution_time\s*=
     line: max_execution_time = 3600
   notify:
-  - restart nginx
-  - restart php5-fpm
+    - restart nginx
+    - restart php5-fpm
 
 # FPM pool configuration
 - name: Set PHP FPM user
