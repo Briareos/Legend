@@ -43,7 +43,7 @@ $cfg['Servers'][$i]['AllowNoPassword'] = true;
 $cfg['Servers'][$i]['controlhost'] = '';
 $cfg['Servers'][$i]['controlport'] = '';
 $cfg['Servers'][$i]['controluser'] = 'phpmyadmin';
-$cfg['Servers'][$i]['controlpass'] = '';
+$cfg['Servers'][$i]['controlpass'] = '123';
 
 /* Storage database and tables */
 $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
