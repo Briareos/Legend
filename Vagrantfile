@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
     vb.name = 'Legend'
     vb.memory = 4096
     vb.cpus = 4
-    vb.gui = true
+    #vb.gui = true
     # Solves problems with ultra-slow DNS lookups.
     # http://askubuntu.com/questions/238040/how-do-i-fix-name-service-for-vagrant-client
     vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
