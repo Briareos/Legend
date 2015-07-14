@@ -19,7 +19,7 @@
     priv: phpmyadmin.*:ALL
     name: phpmyadmin
     host: "%"
-    password: PASSWORD('123')
+    password: "123"
 - name: Import phpMyAdmin schema
   mysql_db:
     name: phpmyadmin

@@ -9,5 +9,5 @@
   mysql_user:
     name: root
     host: "%"
-    password: PASSWORD('123')
+    password: "123"
     priv: "*.*:ALL"
