@@ -9,6 +9,7 @@
     - php5-xhprof
     - php5-mysqlnd
     - php5-mongo
+    - php5-sqlite
   notify: restart php5-fpm
 
 - name: Ensure PHP-FPM is started and enabled to start at boot
