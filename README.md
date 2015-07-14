@@ -15,11 +15,13 @@
 1. Add a deployment machine in PhpStorm.
 1. Exclude the following paths from deployment:
 
-        * /bin
-        * /var/cache/prod
-        * /var/cache/dev/annotation
-        * /var/cache/dev/annotation
-        * /vendor
+        /var/cache/prod
+        /var/cache/test
+        /var/cache/dev/annotation
+        /var/cache/dev/doctrine
+        /var/cache/dev/profiler
+        /var/cache/dev/twig
+        /vendor
 1. Deploy (upload) the project.
 1. Turn on automatic synchronization.
 1. On host machine run `composer install --ignore-platform-reqs --no-autoloader --no-scripts`
