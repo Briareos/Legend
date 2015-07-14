@@ -12,4 +12,15 @@
 
 1. Install PHP and Composer on your host machine and add them to the PATH.
 1. Create/clone your project in any directory on your host machine.
-1. Add 
+1. Add a deployment machine in PhpStorm.
+1. Exclude the following paths from deployment:
+
+        * /bin
+        * /var/cache/prod
+        * /var/cache/dev/annotation
+        * /var/cache/dev/annotation
+        * /vendor
+1. Deploy (upload) the project.
+1. Turn on automatic synchronization.
+1. On host machine run `composer install --ignore-platform-reqs --no-autoloader --no-scripts`
+1. On guest machine run `composer install`
