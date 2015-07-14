@@ -16,9 +16,8 @@
     group: vagrant
 - name: Create phpMyAdmin database user
   mysql_user:
-    priv: phpmyadmin.*:ALL
+    priv: "phpmyadmin.*:ALL"
     name: phpmyadmin
-    host: "%"
     password: "123"
 - name: Import phpMyAdmin schema
   mysql_db:

@@ -10,4 +10,4 @@
     name: root
     host: "%"
     password: "123"
-    priv: "*.*:ALL"
+    priv: "*.*:ALL,GRANT"
