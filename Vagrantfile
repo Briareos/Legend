@@ -1,7 +1,7 @@
 Vagrant.configure(2) do |config|
   # The box will be downloaded from the ooficial repo.
   config.vm.box = 'ubuntu/vivid64'
-  # The directory must be created manually; until Vagrant 1.7.3 comes out.
+  # The directory must be created manually.
   config.vm.synced_folder '../shared', '/home/vagrant/shared'
   # Forwarded ports; the 'name' parameter is currently ignored, but leave it there for documentation's sake.
   config.vm.network :forwarded_port, guest: 21, host: 21, name: 'FTP'

@@ -10,6 +10,9 @@
     - php5-mysqlnd
     - php5-mongo
     - php5-sqlite
+    - php5-intl
+    - php5-redis
+    - php5-gd
   notify: restart php5-fpm
 
 - name: Ensure PHP-FPM is started and enabled to start at boot

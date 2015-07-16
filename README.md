@@ -1,4 +1,4 @@
-* Ensure presence of directory `../shared` (until Vagrant 1.7.3 that creates it automatically).
+* Ensure presence of directory `../shared`.
 * Ensure presence of HOME environmental variable.
 * ConEmu shortcut:
 

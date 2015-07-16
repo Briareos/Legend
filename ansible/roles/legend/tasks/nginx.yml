@@ -23,6 +23,9 @@
 - copy: src=nginx/snippets/http-proxy.conf dest=/etc/nginx/snippets/http-proxy.conf
 - copy: src=nginx/snippets/php.conf dest=/etc/nginx/snippets/php.conf
 - copy: src=nginx/snippets/symfony.conf dest=/etc/nginx/snippets/symfony.conf
+- copy: src=nginx/snippets/cors-head.conf dest=/etc/nginx/snippets/cors-head.conf
+- copy: src=nginx/snippets/cors-tail.conf dest=/etc/nginx/snippets/cors-tail.conf
+- copy: src=nginx/snippets/symfony-cors.conf dest=/etc/nginx/snippets/symfony-cors.conf
 
 # localhost key
 - copy: src=ssl/localhost.key dest=/etc/ssl/private/localhost.key
