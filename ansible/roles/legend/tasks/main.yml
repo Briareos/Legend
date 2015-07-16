@@ -24,3 +24,4 @@
 - include: boris.yml
 - include: phpunit.yml
 - include: composer.yml
+- include: node.yml
