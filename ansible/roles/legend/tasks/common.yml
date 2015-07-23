@@ -8,6 +8,8 @@
     - tree
     - graphviz
     - htop
+    - zip
+    - unzip
     # Required for mysql_* Ansible modules.
     - python-mysqldb
     # Required for apt_repository Ansible module.
