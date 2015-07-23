@@ -26,6 +26,7 @@
 - copy: src=nginx/snippets/cors-head.conf dest=/etc/nginx/snippets/cors-head.conf
 - copy: src=nginx/snippets/cors-tail.conf dest=/etc/nginx/snippets/cors-tail.conf
 - copy: src=nginx/snippets/symfony-cors.conf dest=/etc/nginx/snippets/symfony-cors.conf
+- copy: src=nginx/snippets/symfony-cors.conf dest=/etc/nginx/snippets/wordpress.conf
 
 # localhost key
 - copy: src=ssl/localhost.key dest=/etc/ssl/private/localhost.key
