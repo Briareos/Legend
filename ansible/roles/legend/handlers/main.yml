@@ -1,15 +1,15 @@
 ---
 - name: restart nginx
-  service: name=nginx enabled=yes state=restarted
+  service: name=nginx state=restarted
 
 - name: restart php5-fpm
-  service: name=php5-fpm enabled=yes state=restarted
+  service: name=php5-fpm state=restarted
 
 - name: restart supervisor
-  service: name=supervisor enabled=yes state=restarted
+  service: name=supervisor state=restarted
 
 - name: restart rabbitmq
-  service: name=rabbitmq-server enabled=yes state=restarted
+  service: name=rabbitmq-server state=restarted
 
 - name: update ca certificates
   command: update-ca-certificates --fresh

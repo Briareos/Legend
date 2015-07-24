@@ -15,9 +15,6 @@
     - php5-gd
   notify: restart php5-fpm
 
-- name: Ensure PHP-FPM is started and enabled to start at boot
-  service: name=php5-fpm state=started enabled=yes
-
 - file: state=directory path=/home/vagrant/www/localhost/php owner=vagrant group=vagrant
 - name: Create phpinfo() file
   copy:

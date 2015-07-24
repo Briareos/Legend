@@ -2,9 +2,6 @@
 - name: Install MySQL
   apt: pkg=mysql-server-5.6 state=latest
 
-- name: Ensure MySQL server is started and enabled to start at boot
-  service: name=mysql state=started enabled=yes
-
 - name: Create wildcard root MySQL user
   mysql_user:
     name: root

@@ -2,9 +2,6 @@
 - name: Install Nginx
   apt: pkg=nginx state=latest
 
-- name: Ensure Nginx is started and enabled to start at boot
-  service: name=nginx state=started enabled=yes
-
 - name: Set default Nginx site
   copy: src=nginx/sites/default dest=/etc/nginx/sites-available/default
   notify: restart nginx
@@ -17,6 +14,8 @@
     dest: /etc/nginx/conf.d/fastcgi.conf
     content: |
       fastcgi_read_timeout 3630;
+      client_max_body_size 512m;
+  notify: restart nginx
 
 - copy: src=nginx/snippets/localhost-ssl.conf dest=/etc/nginx/snippets/localhost-ssl.conf
 - copy: src=nginx/snippets/dev-localhost-ssl.conf dest=/etc/nginx/snippets/dev-localhost-ssl.conf
@@ -26,7 +25,7 @@
 - copy: src=nginx/snippets/cors-head.conf dest=/etc/nginx/snippets/cors-head.conf
 - copy: src=nginx/snippets/cors-tail.conf dest=/etc/nginx/snippets/cors-tail.conf
 - copy: src=nginx/snippets/symfony-cors.conf dest=/etc/nginx/snippets/symfony-cors.conf
-- copy: src=nginx/snippets/symfony-cors.conf dest=/etc/nginx/snippets/wordpress.conf
+- copy: src=nginx/snippets/wordpress.conf dest=/etc/nginx/snippets/wordpress.conf
 
 # localhost key
 - copy: src=ssl/localhost.key dest=/etc/ssl/private/localhost.key
