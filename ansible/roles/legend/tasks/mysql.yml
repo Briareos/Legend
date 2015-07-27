@@ -8,3 +8,9 @@
     host: "%"
     password: "123"
     priv: "*.*:ALL,GRANT"
+
+- lineinfile:
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+    state: present
+    regexp: ^bind-address\s*=
+    line: bind-address = 0.0.0.0

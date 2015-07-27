@@ -13,6 +13,7 @@
     - php5-intl
     - php5-redis
     - php5-gd
+    - php5-ssh2
   notify: restart php5-fpm
 
 - file: state=directory path=/home/vagrant/www/localhost/php owner=vagrant group=vagrant
