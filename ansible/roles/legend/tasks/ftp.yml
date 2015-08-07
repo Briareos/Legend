@@ -1,0 +1,16 @@
+---
+- name: Install PureFTPd
+  apt: pkg=pure-ftpd state=latest
+
+- copy:
+    dest: /etc/pure-ftpd/conf/ChrootEveryone
+    content: '1'
+  notify: restart pure-ftpd
+
+- copy:
+    dest: /etc/pure-ftpd/conf/PassivePortRange
+    content: '48261 48262'
+  notify: restart pure-ftpd
+
+- name: Ensure PureFTPd is started and enabled to start at boot
+  service: name=pure-ftpd state=started enabled=yes

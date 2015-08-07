@@ -15,6 +15,8 @@
     content: |
       fastcgi_read_timeout 3630;
       client_max_body_size 512m;
+      fastcgi_buffers 16 16k;
+      fastcgi_buffer_size 32k;
   notify: restart nginx
 
 - copy: src=nginx/snippets/localhost-ssl.conf dest=/etc/nginx/snippets/localhost-ssl.conf

@@ -11,5 +11,8 @@
 - name: restart rabbitmq
   service: name=rabbitmq-server state=restarted
 
+- name: restart pure-ftpd
+  service: name=pure-ftpd state=restarted
+
 - name: update ca certificates
   command: update-ca-certificates --fresh

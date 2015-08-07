@@ -25,3 +25,4 @@
 - include: phpunit.yml
 - include: composer.yml
 - include: node.yml
+- include: ftp.yml

@@ -1,6 +1,7 @@
 Vagrant.configure(2) do |config|
   # The box will be downloaded from the ooficial repo.
   config.vm.box = 'ubuntu/vivid64'
+  config.vm.box_check_update = false
   # The directory must be created manually.
   config.vm.synced_folder '../shared', '/home/vagrant/shared'
   # Forwarded ports; the 'name' parameter is currently ignored, but leave it there for documentation's sake.
@@ -10,11 +11,9 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 3306, host: 3306, name: 'MySQL'
   config.vm.network :forwarded_port, guest: 6379, host: 6379, name: 'Redis'
   config.vm.network :forwarded_port, guest: 27017, host: 27017, name: 'MongoDB'
-  config.vm.network :forwarded_port, guest: 48261, host: 48261, name: 'Reserved #1'
-  config.vm.network :forwarded_port, guest: 48262, host: 48262, name: 'Reserved #2'
-  config.vm.network :forwarded_port, guest: 48263, host: 48263, name: 'Reserved #3'
-  config.vm.network :forwarded_port, guest: 48264, host: 48264, name: 'Reserved #4'
-  config.vm.network :forwarded_port, guest: 48265, host: 48265, name: 'Reserved #5'
+  config.vm.network :forwarded_port, guest: 48261, host: 48261, name: 'PureFTPd #1'
+  config.vm.network :forwarded_port, guest: 48262, host: 48262, name: 'PureFTPd #2'
+  config.vm.network :forwarded_port, guest: 48263, host: 48263, name: 'Gulp'
   # Configure VirtualBox.
   config.vm.provider 'virtualbox' do |vb|
     # The machine name will appear like this in VirtualBox Manager.
