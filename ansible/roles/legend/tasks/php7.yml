@@ -150,7 +150,7 @@
 - copy:
     dest: /opt/{{ php7_version }}/etc/conf.d/20-xdebug.ini
     content: |
-      zend_extension=xdebug.so
+      ;zend_extension=xdebug.so
       xdebug.remote_host={{ host_ip.stdout }}
       xdebug.remote_enable=On
       xdebug.max_nesting_level=250
