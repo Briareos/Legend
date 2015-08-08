@@ -168,6 +168,12 @@
     dest: /opt/{{ php7_version }}/etc/php.ini
     regexp: ^(;\s*)?date.timezone\s*=
     line: date.timezone = UTC
+- name: Set PHP7 FPM sendmail path to Mailcatcher
+  lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php.ini
+    regexp: ^(;\s*)?sendmail_path\s*=
+    line: sendmail_path = /usr/bin/env /usr/local/bin/catchmail -f no-reply@localhost
+  notify: restart php7-fpm
 - template:
     src: php7/init-php7-fpm.conf
     dest: /etc/init/php7-fpm.conf

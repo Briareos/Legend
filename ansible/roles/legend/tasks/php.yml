@@ -46,7 +46,7 @@
     regexp: ^(;\s*)?display_errors\s*=
     line: display_errors = On
   notify: restart php5-fpm
-- name: Set PHP FPM sendmail path to Mailcatcher
+- name: Display PHP FPM startup errors
   lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
@@ -56,7 +56,8 @@
   # Avoid Ruby's mail gem error "An SMTP From address is required to send a message.
   # Set the message smtp_envelope_from, return_path, sender, or from address." by
   # setting a default "From" header.
-- lineinfile:
+- name: Set PHP FPM sendmail path to Mailcatcher
+  lineinfile:
     dest: /etc/php5/fpm/php.ini
     state: present
     regexp: ^(;\s*)?sendmail_path\s*=
