@@ -5,6 +5,10 @@
   shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
   when: composer.stat.exists == false
 - file: path=/usr/local/bin/composer state=file mode=0755
-- command: composer self-update
+- name: Update Composer
+  command: composer self-update
   when: composer.stat.exists == true
-
+- name: Ensure presence of Composer-installed binaries in PATH
+  copy:
+    dest: /etc/profile.d/add-composer-path.sh
+    content: 'export PATH="$PATH:$HOME/.composer/vendor/bin"'

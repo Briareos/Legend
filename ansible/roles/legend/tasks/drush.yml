@@ -1,0 +1,15 @@
+---
+- stat: path=/home/vagrant/.composer/vendor/bin/drush
+  register: drush
+- name: Install Drush 8.x
+  command: composer global require drush/drush:dev-master
+  when: drush.stat.exists == false
+  su_user: vagrant
+  environment:
+    COMPOSER_HOME: /home/vagrant/.composer
+- name: Update Drush 8.x
+  command: composer global update drush/drush
+  when: drush.stat.exists == true
+  su_user: vagrant
+  environment:
+    COMPOSER_HOME: /home/vagrant/.composer
