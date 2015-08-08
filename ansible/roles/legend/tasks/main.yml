@@ -3,27 +3,31 @@
   shell: netstat -rn | grep "^0\.0\.0\.0 " | cut -d " " -f10 | tr -d '\n'
   register: host_ip
 - apt_repository: repo=ppa:nginx/stable
-- include: home.yml
-- include: common.yml
+- apt_repository: repo=ppa:ansible/ansible
+#- include: home.yml
+#- include: common.yml
 - include: nginx.yml
-- include: mysql.yml
-- include: phpmyadmin.yml
+#- include: mysql.yml
+#- include: phpmyadmin.yml
+#  vars:
+#    phpmyadmin_path: /home/vagrant/www/localhost/mysql
+#    phpmyadmin_branch: STABLE
+#- include: mongo.yml
+#- include: rockmongo.yml
+#  vars:
+#    rockmongo_path: /home/vagrant/www/localhost/mongo
+#- include: redis.yml
+#- include: redis-commander.yml
+#- include: php.yml
+#- include: rabbitmq.yml
+#- include: mailcatcher.yml
+#- include: wp-cli.yml
+#- include: boris.yml
+#- include: phpunit.yml
+#- include: composer.yml
+#- include: node.yml
+#- include: ftp.yml
+#- include: drush.yml
+- include: php7.yml
   vars:
-    phpmyadmin_path: /home/vagrant/www/localhost/mysql
-    phpmyadmin_branch: STABLE
-- include: mongo.yml
-- include: rockmongo.yml
-  vars:
-    rockmongo_path: /home/vagrant/www/localhost/mongo
-- include: redis.yml
-- include: redis-commander.yml
-- include: php.yml
-- include: rabbitmq.yml
-- include: mailcatcher.yml
-- include: wp-cli.yml
-- include: boris.yml
-- include: phpunit.yml
-- include: composer.yml
-- include: node.yml
-- include: ftp.yml
-- include: drush.yml
+    php7_version: php-7.0.0beta3

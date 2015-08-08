@@ -36,6 +36,24 @@ server {
 }
 
 server {
+    server_name php7.dev.localhost;
+    root /home/vagrant/www/localhost/php;
+    index index.php;
+
+    include snippets/php7.conf;
+}
+
+server {
+    listen 443;
+    server_name php7.dev.localhost;
+    root /home/vagrant/www/localhost/php;
+    index index.php;
+
+    include snippets/dev-localhost-ssl.conf;
+    include snippets/php7.conf;
+}
+
+server {
     server_name mysql.dev.localhost;
     index index.php;
     root /home/vagrant/www/localhost/mysql;

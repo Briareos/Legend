@@ -1,0 +1,169 @@
+---
+- name: Install PHP7 build dependencies
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - libxml2-dev
+    - librecode-dev
+    - libpspell-dev
+    - libbz2-dev
+    - libssl-dev
+    - libcurl4-openssl-dev
+    - pkg-config
+    - libpng12-dev
+    - libicu-dev
+    - libgmp-dev
+    - libfreetype6-dev
+    - libjpeg8-dev
+    - libwebp-dev
+    - libxpm-dev
+    - libsystemd-dev
+    - libmcrypt-dev
+    - libreadline-dev
+- name: Check if PHP7 is installed
+  shell: php7 --version
+  register: php7
+  ignore_errors: yes
+- name: Download PHP7
+  get_url:
+    url: https://downloads.php.net/~ab/{{ php7_version }}.tar.bz2
+    dest: /usr/src/{{ php7_version }}.tar.bz2
+- name: Extract PHP7 archive
+  unarchive:
+    copy: no
+    dest: /usr/src
+    src: /usr/src/{{ php7_version }}.tar.bz2
+    creates: /usr/src/{{ php7_version }}
+# I've found no way to make this work with any configuration option (--with-libdir/--libdir), so use a hacky way here.
+- file:
+    path: /usr/include/gmp.h
+    src: /usr/include/x86_64-linux-gnu/gmp.h
+    state: link
+- name: Install PHP7
+  args:
+    chdir: /usr/src/{{ php7_version }}
+    creates: /opt/{{ php7_version }}
+  shell: |
+    ./configure \
+      --prefix=/opt/{{ php7_version }} \
+      --with-config-file-path=/opt/{{ php7_version }}/etc/php.ini \
+      --with-config-file-scan-dir=/opt/{{ php7_version }}/etc/conf.d \
+      --enable-mbstring \
+      --enable-zip \
+      --enable-bcmath \
+      --enable-pcntl \
+      --enable-ftp \
+      --enable-exif \
+      --enable-calendar \
+      --enable-dba \
+      --enable-sysvmsg \
+      --enable-sysvsem \
+      --enable-sysvshm \
+      --enable-wddx \
+      --enable-intl \
+      --enable-sockets \
+      --enable-soap \
+      --enable-mysqlnd \
+      --with-curl \
+      --with-iconv \
+      --with-gmp \
+      --with-pspell \
+      --with-gd \
+      --with-gd \
+      --with-readline \
+      --with-mcrypt \
+      --with-mhash \
+      --enable-gd-native-ttf \
+      --enable-gd-jis-conv \
+      --with-openssl \
+      --with-pdo-mysql \
+      --with-gettext \
+      --with-zlib \
+      --with-bz2 \
+      --with-recode \
+      --with-mysqli \
+      --enable-fpm \
+      --with-fpm-user=vagrant \
+      --with-fpm-group=vagrant \
+      --with-fpm-group=vagrant \
+      --with-fpm-systemd \
+    && make clean \
+    && make install
+- alternatives:
+    name: php7
+    path: /opt/{{ php7_version }}/bin/php
+    link: /usr/local/bin/php7
+- alternatives:
+    name: phpize7
+    path: /opt/{{ php7_version }}/bin/phpize
+    link: /usr/local/bin/phpize7
+- copy:
+    src: /opt/{{ php7_version }}/etc/php-fpm.conf.default
+    dest: /opt/{{ php7_version }}/etc/php-fpm.conf
+- lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php-fpm.conf
+    regexp: ^(;\s*)?pid\s*=
+    line: pid = /var/run/php7-fpm.pid
+- lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php-fpm.conf
+    regexp: ^(;\s*)?error_log\s*=
+    line: error_log = /var/log/php7-fpm.log
+- copy:
+    src: /opt/{{ php7_version }}/etc/php-fpm.d/www.conf.default
+    dest: /opt/{{ php7_version }}/etc/php-fpm.d/www.conf
+- lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php-fpm.d/www.conf
+    regexp: ^(;\s*)?listen\s*=
+    line: listen = /var/run/php7-fpm.sock
+- lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php-fpm.d/www.conf
+    regexp: ^(;\s*)?listen\.owner\s*=
+    line: listen.owner = www-data
+- lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php-fpm.d/www.conf
+    regexp: ^(;\s*)?listen\.group\s*=
+    line: listen.group = www-data
+- lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php-fpm.d/www.conf
+    regexp: ^(;\s*)?chdir\s*=
+    line: chdir = /
+
+# PHP7 INI pool configuration
+- file:
+    dest: /opt/{{ php7_version }}/etc/php.d
+    state: directory
+- copy:
+    dest: /opt/{{ php7_version }}/etc/php.d/20-xdebug.ini
+    content: |
+      zend_extension = xdebug.so
+      xdebug.remote_host = {{ host_ip.stdout }}
+      xdebug.remote_enable = On
+      xdebug.max_nesting_level = 250
+
+# PHP7 INI configuration
+- copy:
+    src: /usr/src/{{ php7_version }}/php.ini-development
+    dest: /opt/{{ php7_version }}/etc/php.ini
+- name: Set PHP FPM default timezone
+  lineinfile:
+    dest: /opt/{{ php7_version }}/etc/php.ini
+    regexp: ^(;\s*)?date.timezone\s*=
+    line: date.timezone = UTC
+- template:
+    src: php7/init-php7-fpm.conf
+    dest: /etc/init/php7-fpm.conf
+    mode: 0755
+- template:
+    src: php7/init.d-php7-fpm.sh
+    dest: /etc/init.d/php7-fpm
+    mode: 0755
+- template:
+    src: php7/php7-fpm-checkconf.sh
+    dest: /usr/local/lib/php7-fpm-checkconf
+    mode: 0755
+- template:
+    src: php7/php7-fpm.service.ini
+    dest: /lib/systemd/system/php7-fpm.service
+    mode: 0644
+
+# @todo Should be executed only after installing the PHP7 for the first time:
+# update-rc.d php7-fpm defaults ; service php7-fpm start
