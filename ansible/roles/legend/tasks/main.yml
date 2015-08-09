@@ -31,3 +31,5 @@
 - include: php7.yml
   vars:
     php7_version: php-7.0.0beta3
+    php7_xdebug_version: 2.3.3
+- include: hhvm.yml

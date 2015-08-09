@@ -1,0 +1,36 @@
+---
+# sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
+- name: Add dl.hhvm.com apt key
+  apt_key:
+    data: |
+      -----BEGIN PGP PUBLIC KEY BLOCK-----
+      Version: SKS 1.1.5
+      Comment: Hostname: keyserver.ubuntu.com
+
+      mQENBFK6VTEBCADdb5GJs/L6ONtYeJ3cQqB9gMQ7/Bwbhryi/llyozT5w0yLew7SIAi5tFJV
+      N2iCGqp48pNJQa0rIvLBvNmWZdLBSk5pZvxLkSeIKst3GQq//VTlEXdhrXQDc8yoKXKQ+B63
+      MAxPJCZpar5E9bQ8XEjeTmwTIEYS8pKoPW3Rc6wX0OBB4rXN5lLEG79ryuGpqPliKTe1y7sC
+      jTMHQSnw9X+T5gbQpnLQf5Z6YzJtXvISmxFR3JugDpg4Isef3jwYCwo0BSQ6LSVhkpkVJ86w
+      XxGMPQkMH9VPc9Qns1JrNWzjs8a9BJmcG/9auifp9JBelDOG4YD56oLOgR2OnzvSLd+tABEB
+      AAG0F1BhdWwgVGFyamFuIDxwdEBmYi5jb20+iQE4BBMBAgAiBQJSulUxAhsDBgsJCAcDAgYV
+      CAIJCgsEFgIDAQIeAQIXgAAKCRBaFucoG+ekSTH5B/0Zg+mXsYJkZkU/qu+q9OPA3eOIqLof
+      8N6IeDl0z7x50eZ78Lk1M9VNLEp1Kq/lvLGd3yUoHqvSRnNSTcRoRsm3r6jKRH9UscpqcQqX
+      g7pAcKBDp2lZEr2XkSulhEKUIAZHtaq8vtoP7hQXFwE5ndwUfEnaWoTtVq99BLq16qe1q1xJ
+      4F+be7Tm8F/VKGcCVsu5H34lDiUsezlOalXpklhG1DnNS1zhfN82ue/kNywMtJQpE48H1Liz
+      d2KrXW+GugGus1cMWYg1JfxMguLDV31DxplnbE3UTy/F8Fp9tt9gPW4ifpSNLfgDupKNgPP9
+      bKX11tC2l+xDuIr+daEoWzsyuQENBFK6VTEBCACpyG174mVuNhXHr/hqDMuEy3jw3NHPqLhg
+      Rjx0PnbC4eAbpNoXPXgMNn5Cvm3s7EkkDbJgYr3AHurC4ksJkbpXTffug1hQ5xRtkl5o0Z/S
+      NP3xosh5IrXjhgCQfUqW52fdwactTCZn1j1QCB9LjxIvxDoSOndg/Wo/p6l8hXPpIZwU7xB0
+      /PuObTGNSJflw0RrUVQ5JPLS2ZIcWnv1Gc4CGJO32sMQ4Yf1RPU4EjpprsHF+d4aOvR1shO/
+      gACKvLZMs20M9K1rZstDgRQ0JuLO50TzPOcK2TasjjKShDC0gOwV9mZpqnAM1w/A++ODgo8b
+      RvrI5NphgTU4yaVprplJABEBAAGJAR8EGAECAAkFAlK6VTECGwwACgkQWhbnKBvnpEnqoAgA
+      wOMY4jj8udFPYru9VxC5SuIF8TvKGUVMK0lPVgdGsj/HCb6y5P/sJAdMkQ5QwhPq6ELNkXI5
+      QHDdn6DstNmeHq3p6PfIt+CUqZOaehjC6UaXvULSkySwGl6r6BviSiqi2HqNYGX2z33jYiAM
+      L/0NVBLTXXw+0PdJ2aSRZh11bFS7sgiZMzUMkG/U6CJ81TrF4zRdOWFkQx2gd8DmoweEmshK
+      aIYX5L5/v09IgHDz5aiEIBuR5Bc9x5+ziYlwXVokWvn67TY9SV5GwhIbcYet7HQ8gd9mdqM1
+      GqfFtxGuITExUIkTYwGBqAUinjmu4d4wGyNS7SJSflR03T4/1CwSYw==
+      =C5R0
+      -----END PGP PUBLIC KEY BLOCK-----
+- apt_repository: repo="deb http://dl.hhvm.com/ubuntu {{ facter_lsbdistcodename }} main"
+- name: Install HHVM
+  apt: pkg=hhvm state=latest
