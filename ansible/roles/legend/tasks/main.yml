@@ -34,3 +34,4 @@
     php7_xdebug_version: 2.3.3
 - include: hhvm.yml
 - include: blackfire.yml
+- include: resolvconf.yml
