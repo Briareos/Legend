@@ -30,18 +30,17 @@ git clone https://github.com/briareos/Legend
 ??? shared
 ```
 
-3. Start the Vagrant machine while inside the `Legend` directory.
-
-```
-vagrant up
-```
-
 **Note**: If you are on OS X first run:
 
 ```
 vagrant plugin install vagrant-triggers
 ```
-After that uncomment lines **11-12** and **21-29** and also comment lines **9-10**.
+
+3. Start the Vagrant machine while inside the `Legend` directory.
+
+```
+vagrant up
+```
 
 ---
 
