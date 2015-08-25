@@ -30,6 +30,12 @@ git clone https://github.com/briareos/Legend
 ??? shared
 ```
 
+**Note**: If you are on OS X first run:
+
+```
+vagrant plugin install vagrant-triggers
+```
+
 3. Start the Vagrant machine while inside the `Legend` directory.
 
 ```
@@ -109,7 +115,7 @@ mkdir ~/www/[project-name]
 ### Project Configuration
 Open project in PHPStorm
 
-#### Enable Symfony plugin 
+#### Enable Symfony plugin
 - Go to: `Settings>Other Settings>Symfony2 Plugin`
 - Check: Enable Plugin for this Project
 
@@ -139,8 +145,8 @@ Open project in PHPStorm
     	/var/cache/dev/twig
     	/vendor
     	```
-	
-#### Setup Automatic Deployment 
+
+#### Setup Automatic Deployment
 - Go to: `Settings>Build, Execution, Deployment>Deployment>Options`
 - Upload changed files automatically to the default server: Always
 
@@ -156,7 +162,7 @@ Open project in PHPStorm
     - Name: [project-name]
     - Host: [project-name].dev.localhost
     - Port: 80
-    - `Check` Use path mappings: 
+    - `Check` Use path mappings:
 	    - [local-path] -> /home/vagrant/www/[project-name]
 
 #### Run project specific migration scripts

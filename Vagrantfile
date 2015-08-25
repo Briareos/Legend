@@ -6,14 +6,38 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder '../shared', '/home/vagrant/shared'
   # Forwarded ports; the 'name' parameter is currently ignored, but leave it there for documentation's sake.
   config.vm.network :forwarded_port, guest: 21, host: 21, name: 'FTP'
-  config.vm.network :forwarded_port, guest: 80, host: 80, name: 'HTTP'
-  config.vm.network :forwarded_port, guest: 443, host: 443, name: 'HTTPS'
+
+  if RUBY_PLATFORM !~ /darwin/
+    config.vm.network :forwarded_port, guest: 80, host: 80, name: 'HTTP'
+    config.vm.network :forwarded_port, guest: 443, host: 443, name: 'HTTPS'
+  else
+    config.vm.network :forwarded_port, guest: 80, host: 8080, name: 'HTTP' # OS X Ports
+    config.vm.network :forwarded_port, guest: 443, host: 4443, name: 'HTTPS' # OS X Ports
+  end
+
   config.vm.network :forwarded_port, guest: 3306, host: 3306, name: 'MySQL'
   config.vm.network :forwarded_port, guest: 6379, host: 6379, name: 'Redis'
   config.vm.network :forwarded_port, guest: 27017, host: 27017, name: 'MongoDB'
   config.vm.network :forwarded_port, guest: 48261, host: 48261, name: 'PureFTPd #1'
   config.vm.network :forwarded_port, guest: 48262, host: 48262, name: 'PureFTPd #2'
   config.vm.network :forwarded_port, guest: 48263, host: 48263, name: 'Gulp'
+
+  # Port forwarding for OS X
+  # Note: install "vagrant plugin install vagrant-triggers" if running under OS X (tested on Yosemite)
+  if RUBY_PLATFORM =~ /darwin/
+    config.trigger.after [:provision, :up, :reload] do
+        system('echo "
+          rdr pass on lo0 inet proto tcp from any to 127.0.0.1 port 80 -> 127.0.0.1 port 8080  
+          rdr pass on lo0 inet proto tcp from any to 127.0.0.1 port 443 -> 127.0.0.1 port 4443
+    " | sudo pfctl -ef - > /dev/null 2>&1; echo "==> Fowarding Ports: 80 -> 8080, 443 -> 4443 & Enabling pf"')  
+    end
+
+    config.trigger.after [:halt, :destroy] do
+      system("sudo pfctl -df /etc/pf.conf > /dev/null 2>&1; echo '==> Removing Port Forwarding & Disabling pf'")
+    end
+  end
+  # End port forwarding for OS X
+
   # Configure VirtualBox.
   config.vm.provider 'virtualbox' do |vb|
     # The machine name will appear like this in VirtualBox Manager.
