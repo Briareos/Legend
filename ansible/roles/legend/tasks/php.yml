@@ -139,5 +139,5 @@
     dest: /etc/php5/mods-available/xdebug.ini
     state: present
     regexp: ^xdebug\.max_nesting_level\s*=
-    line: xdebug.max_nesting_level=250
+    line: xdebug.max_nesting_level=256
   notify: restart php5-fpm
