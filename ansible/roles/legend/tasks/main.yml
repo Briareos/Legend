@@ -30,7 +30,7 @@
 - include: drush.yml
 - include: php7.yml
   vars:
-    php7_version: php-7.0.0RC1
+    php7_version: php-7.0.0RC2
     php7_xdebug_version: 2.3.3
 - include: hhvm.yml
 - include: blackfire.yml
