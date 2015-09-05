@@ -154,6 +154,7 @@
       xdebug.remote_host={{ host_ip.stdout }}
       xdebug.remote_enable=On
       xdebug.max_nesting_level=256
+      xdebug.cli_color=1
 - copy:
     dest: /opt/{{ php7_version }}/etc/conf.d/05-opcache.ini
     content: |

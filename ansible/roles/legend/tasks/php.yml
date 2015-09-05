@@ -141,3 +141,9 @@
     regexp: ^xdebug\.max_nesting_level\s*=
     line: xdebug.max_nesting_level=256
   notify: restart php5-fpm
+- lineinfile:
+    dest: /etc/php5/mods-available/xdebug.ini
+    state: present
+    regexp: ^xdebug\.cli_color\s*=
+    line: xdebug.cli_color=1
+  notify: restart php5-fpm
