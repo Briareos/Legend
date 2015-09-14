@@ -38,6 +38,15 @@
 - name: Install RabbitMQ
   apt: pkg=rabbitmq-server state=latest
 
+- name: Get RabbitMQ version
+  shell: rabbitmqctl status | grep \"RabbitMQ\" | cut -d'"' -f4
+  register: rabbitmq_version
+
+- name: Download RabbitMQ "delayed message exchange" plugin
+  get_url:
+    url: http://www.rabbitmq.com/community-plugins/v3.5.x/rabbitmq_delayed_message_exchange-0.0.1-rmq3.5.x-9bf265e4.ez
+    dest: /usr/lib/rabbitmq/lib/rabbitmq_server-{{ rabbitmq_version.stdout }}/plugins/rabbitmq_delayed_message_exchange-0.0.1-rmq3.5.x-9bf265e4.ez
+
 - rabbitmq_plugin:
-    names: rabbitmq_management,rabbitmq_management_visualiser,rabbitmq_tracing,rabbitmq_stomp,rabbitmq_web_stomp,rabbitmq_web_stomp_examples
+    names: rabbitmq_management,rabbitmq_management_visualiser,rabbitmq_tracing,rabbitmq_stomp,rabbitmq_web_stomp,rabbitmq_web_stomp_examples,rabbitmq_delayed_message_exchange
   notify: restart rabbitmq
