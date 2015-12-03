@@ -1,11 +1,5 @@
 ---
-- stat: path=/home/vagrant/.composer/vendor/bin/drush
-  register: drush
-- name: Install Drush 8.x
-  command: composer global require drush/drush:dev-master
-  when: drush.stat.exists == false
-  sudo_user: vagrant
-- name: Update Drush 8.x
-  command: composer global update drush/drush
-  when: drush.stat.exists == true
+- name: Install/Update Drush 8.x
+  # Composer is still buggy, so do what it takes to install everything that we need.
+  shell: composer global require drush/drush:8.0.* || (rm -rf /home/vagrant/composer/vendor /home/vagrant/.composer/composer.lock && composer global require drush/drush:8.0.*)
   sudo_user: vagrant

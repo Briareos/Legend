@@ -26,7 +26,7 @@
   ignore_errors: yes
 - name: Download PHP7
   get_url:
-    url: https://downloads.php.net/~ab/{{ php7_version }}.tar.bz2
+    url: http://us1.php.net/distributions/{{ php7_version }}.tar.bz2
     dest: /usr/src/{{ php7_version }}.tar.bz2
 - name: Extract PHP7 archive
   unarchive:
@@ -128,20 +128,19 @@
     regexp: ^(;\s*)?chdir\s*=
     line: chdir = /
 
-# Uncomment lines below when XDebug gets PHP7 support
-#- name: Get PHP7 extension dir
-#  shell: php7 -i | grep ^extension_dir | cut -d " " -f 5 | tr -d '\n'
-#  register: php7_extension_dir
-#- name: Install PHP7 XDebug
-#  args:
-#    creates: "{{ php7_extension_dir.stdout }}/xdebug.so"
-#  shell: |
-#    rm -rf /usr/src/xdebug-{{ php7_xdebug_version }} \
-#    && git clone https://github.com/xdebug/xdebug.git -b {{ php7_xdebug_version }} --depth 1 /usr/src/xdebug-{{ php7_xdebug_version }} \
-#    && cd /usr/src/xdebug-{{ php7_xdebug_version }} \
-#    && phpize7 \
-#    && ./configure --with-php-config=/opt/{{ php7_version }}/bin/php-config \
-#    && make install
+- name: Get PHP7 extension dir
+  shell: php7 -i | grep ^extension_dir | cut -d " " -f 5 | tr -d '\n'
+  register: php7_extension_dir
+- name: Install PHP7 XDebug
+  args:
+    creates: "{{ php7_extension_dir.stdout }}/xdebug.so"
+  shell: |
+    rm -rf /usr/src/xdebug-{{ php7_xdebug_version }} \
+    && git clone https://github.com/xdebug/xdebug.git -b {{ php7_xdebug_version }} --depth 1 /usr/src/xdebug-{{ php7_xdebug_version }} \
+    && cd /usr/src/xdebug-{{ php7_xdebug_version }} \
+    && phpize7 \
+    && ./configure --with-php-config=/opt/{{ php7_version }}/bin/php-config \
+    && make install
 
 # PHP7 INI pool configuration
 - file:
@@ -150,7 +149,7 @@
 - copy:
     dest: /opt/{{ php7_version }}/etc/conf.d/20-xdebug.ini
     content: |
-      ;zend_extension=xdebug.so
+      zend_extension=xdebug.so
       xdebug.remote_host={{ host_ip.stdout }}
       xdebug.remote_enable=On
       xdebug.max_nesting_level=256

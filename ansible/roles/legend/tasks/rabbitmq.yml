@@ -39,7 +39,7 @@
   apt: pkg=rabbitmq-server state=latest
 
 - name: Get RabbitMQ version
-  shell: rabbitmqctl status | grep \"RabbitMQ\" | cut -d'"' -f4
+  shell: apt-cache policy rabbitmq-server | grep 'Installed:' | cut -d' ' -f4 | cut -d'-' -f1
   register: rabbitmq_version
 
 - name: Download RabbitMQ "delayed message exchange" plugin

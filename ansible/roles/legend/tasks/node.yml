@@ -1,12 +1,8 @@
 ---
+- name: Add NodeJS 4.x repo
+  shell: curl -sL https://deb.nodesource.com/setup_4.x | bash -
+
 - name: Install NodeJS
   apt: pkg={{ item }} state=latest
   with_items:
     - nodejs
-    - nodejs-legacy
-
-- name: Install PhantomJS
-  npm: name=phantomjs global=yes
-
-- name: install Gulp 4 (beta)
-  npm: name=gulpjs/gulp-cli#4.0 global=yes
