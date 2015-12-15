@@ -12,5 +12,10 @@
     content: '48261 48262'
   notify: restart pure-ftpd
 
+- copy:
+    dest: /etc/pure-ftpd/conf/ForcePassiveIP
+    content: '127.0.0.1'
+  notify: restart pure-ftpd
+
 - name: Ensure PureFTPd is started and enabled to start at boot
   service: name=pure-ftpd state=started enabled=yes
