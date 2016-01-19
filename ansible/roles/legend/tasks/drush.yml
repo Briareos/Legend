@@ -2,4 +2,5 @@
 - name: Install/Update Drush 8.x
   # Composer is still buggy, so do what it takes to install everything that we need.
   shell: composer global require drush/drush:8.0.* || (rm -rf /home/vagrant/.composer/vendor /home/vagrant/.composer/composer.lock && composer global require drush/drush:8.0.*)
-  sudo_user: vagrant
+  become: yes
+  become_user: vagrant

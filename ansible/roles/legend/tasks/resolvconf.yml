@@ -1,6 +1,8 @@
 ---
 - name: Add google DNS to resolvconf
-  sudo_user: root
+  become: yes
+  become_user: root
+  become_method: sudo
   copy:
     dest: /etc/resolvconf/resolv.conf.d/head
     content: |
@@ -9,5 +11,7 @@
       nameserver 8.8.4.4
 
 - name: Update resolvconf
-  sudo_user: root
+  become: yes
+  become_user: root
+  become_method: sudo
   command: resolvconf -u

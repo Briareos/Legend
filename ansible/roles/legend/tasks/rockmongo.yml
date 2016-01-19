@@ -1,7 +1,8 @@
 ---
 - file: state=directory path={{ rockmongo_path }} owner=vagrant group=vagrant
 - name: Checkout RockMongo
-  sudo_user: vagrant
+  become: yes
+  become_user: vagrant
   git:
     repo: https://github.com/emri99/rockmongo.git
     dest: "{{ rockmongo_path }}"
