@@ -6,6 +6,7 @@
 - apt_repository: repo=ppa:ansible/ansible
 - include: home.yml
 - include: common.yml
+- include: node.yml
 - include: nginx.yml
 - include: mysql.yml
 - include: phpmyadmin.yml
@@ -25,7 +26,6 @@
 - include: boris.yml
 - include: phpunit.yml
 - include: composer.yml
-- include: node.yml
 - include: ftp.yml
 - include: drush.yml
 - include: php7.yml
