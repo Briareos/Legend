@@ -59,9 +59,9 @@ Vagrant.configure(2) do |config|
     # http://stackoverflow.com/a/677212
     if ! hash ansible 2>/dev/null; then
       echo "Installing ansible..."
-      apt-add-repository ppa:ansible/ansible > /dev/null 2&>1
-      apt-get update > /dev/null
-      apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" ansible > /dev/null 2&>1
+      apt-add-repository ppa:ansible/ansible &>/dev/null
+      apt-get update &>/dev/null
+      apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" ansible &>/dev/null
       echo "Complete."
     fi
     echo -e '[default]\nlocalhost ansible_connection=local' > /etc/ansible/hosts
